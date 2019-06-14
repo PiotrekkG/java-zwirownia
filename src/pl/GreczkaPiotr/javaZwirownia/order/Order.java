@@ -40,4 +40,16 @@ public class Order {
     public boolean hasSizeVariant() {
         return sizeVariant == null;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderDescription='" + orderDescription + '\'' +
+                ", materialType=" + materialType +
+                ", sizeVariant=" + sizeVariant +
+                ", takeFromEach=" + takeFromEach +
+                ", quantity=" + quantity +
+                ", isRealized=" + isRealized +
+                '}';
+    }
 }

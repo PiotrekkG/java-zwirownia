@@ -5,47 +5,6 @@ import java.util.Scanner;
 
 public class Functions {
     /**
-    * Wyświetla menu na podstawie podanych argumentów
-    * @param tryWidth jeśli mniejsze mniejsze niż 5, to dostosuje się na pewno do szerokości tekstu (tytułu)
-    * */
-    public static void DisplayMenu(String title, String description, boolean showBottomBorder, int tryWidth, char horizontalBorderChar, char verticalBorderChar, char cornersChar) {
-        String output = "\n", borderTemplate = "";
-
-        if (title.length() + 4 > tryWidth)
-            tryWidth = title.length() + 4;
-
-        borderTemplate += cornersChar;
-        for (int i = 0; i < tryWidth - 2; i++) {
-            borderTemplate += horizontalBorderChar;
-        }
-        borderTemplate += cornersChar + "\n";
-
-        output += borderTemplate;
-        output += verticalBorderChar + " " + title;
-        for (int i = 0; i < tryWidth - title.length() - 4; i++) {
-            output += " ";
-        }
-        output += " " + verticalBorderChar + "\n";
-
-        if (description != "") {
-            output += borderTemplate;
-
-            String descriptionLines[] = description.split("\n");
-            for (var line : descriptionLines) {
-                if (line.length() == 0)
-                    output += borderTemplate;
-                else
-                    output += verticalBorderChar + " " + line + "\n";
-            }
-        }
-
-        if (showBottomBorder)
-            output += borderTemplate;
-
-        System.out.println(output);
-    }
-
-    /**
      * Prosi o podanie wartości (typu int) i sprawdza czy na podstawie podanych argumentów wartość zgadza się z wymaganym przedziałem
      * @param text Tekst informujący o wprowadzanych danych
      * @param allowNegative dozwolone są liczby ujemne
@@ -98,6 +57,43 @@ public class Functions {
                 }
             } catch (Exception e) {
                 System.out.println("Błędna wartość - wymagana jest liczba całkowita!");
+            }
+        }
+
+        return s;
+    }
+
+    /**
+     * Prosi o podanie wartości (typu int) i sprawdza na podstawie podanych argumentów czy wartość zgadza się z wymaganym wzorcem (podana wartość zawiera się w tablicy intów)
+     * @param allowOnlyInput tablica dozwolonych wartości
+     * @param text Tekst informujący o wprowadzanych danych
+     * */
+    public static int GetInputInt(int[] allowOnlyInput, String text) {
+        if(allowOnlyInput.length == 0)
+            return GetInputInt(text, true);
+
+        Scanner inputScanner = new Scanner(System.in);
+        int s = 0;
+
+        while (true) {
+            System.out.print(text + ">> ");
+            try {
+                s = inputScanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Błędna wartość - wymagana jest liczba całkowita!");
+            }
+
+            if (contains(allowOnlyInput, s)) {
+                break;
+            } else {
+                System.out.print("Nieprawidłowa wartość, prawidłowe to: ");
+                for (var a : allowOnlyInput) {
+                    if (a != allowOnlyInput[0])
+                        System.out.print(", ");
+
+                    System.out.print(a);
+                }
+                System.out.println();
             }
         }
 
@@ -255,6 +251,15 @@ public class Functions {
      * @param targetValue szukany element
      * */
     public static boolean contains(String[] arr, String targetValue) {
+        return Arrays.asList(arr).contains(targetValue);
+    }
+
+    /**
+     * Sprawdza czy element znajduje się w podanej tablicy.
+     * @param arr tablica
+     * @param targetValue szukany element
+     * */
+    public static boolean contains(int[] arr, int targetValue) {
         return Arrays.asList(arr).contains(targetValue);
     }
 }

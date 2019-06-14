@@ -1,7 +1,7 @@
 package pl.GreczkaPiotr.javaZwirownia.material;
 
 public enum MaterialTypes {
-    Unknown("Nieznany typ"), Sand("Piasek"), Gravel("Żwir"), Rock("Kamień"), Chippings("Grys"), GravelMix("Pospółka");
+    Sand("Piasek"), Gravel("Żwir"), Rock("Kamień"), Chippings("Grys"), GravelMix("Pospółka"), ExampleType("Przykładowy typ materiału");
 
     private String value;
     MaterialTypes(String str) { this.value = str; }
