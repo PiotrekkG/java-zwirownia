@@ -1,7 +1,7 @@
 package pl.GreczkaPiotr.javaZwirownia.material;
 
 public enum SizeVariant {
-    VerySmall("bardzo drobne"), Small("drobne"), Medium("średnie"), Big("duże");
+    VerySmall("bardzo drobne"), Small("drobne"), Medium("średnie"), Big("duże"), VeryBig("bardzo duże");
 
     private String value;
     SizeVariant(String str) { this.value = str; }

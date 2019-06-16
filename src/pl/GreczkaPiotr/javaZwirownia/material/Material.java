@@ -5,6 +5,7 @@ import pl.GreczkaPiotr.javaZwirownia.GravelPitManagment;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 
 public class Material {
     public MaterialTypes materialType;
@@ -79,7 +80,7 @@ public class Material {
         return false;
     }
 
-    public Boolean TakeFrom(int quantity, boolean takeQuantityFromEach) {
+    public Boolean TakeFrom(int quantity, Boolean takeQuantityFromEach) {
         if (!GravelPitManagment.main.silentMode)
             System.out.println("Próba pobrania z magazynu materiału " + materialType + " w ilości " + quantity + " jednostek, wariant: " + (takeQuantityFromEach ? "pobierz ilość z każdej hałdy" : "pobierz materiał w miarę równomiernie"));
 
@@ -145,9 +146,14 @@ public class Material {
         return true; //gotowe, udało się
     }
 
-    public Boolean TakeFrom(int quantity, SizeVariant sizesToTakeFrom[], boolean takeQuantityFromEach) {
+    public Boolean TakeFrom(int quantity, List<SizeVariant> sizesToTakeFrom, boolean takeQuantityFromEach) {
+        if(sizesToTakeFrom.size() == 0)
+            return TakeFrom(quantity, takeQuantityFromEach);
+        if (sizesToTakeFrom.size() == 1)
+            return TakeFrom(quantity, sizesToTakeFrom.get(0));
+
         if (!GravelPitManagment.main.silentMode)
-            System.out.println("Próba pobrania z magazynu materiału " + materialType + " w ilości " + quantity + " jednostek, wariant: " + ("minimalny rozmiar: " + sizesToTakeFrom[0] + ", maksymalny rozmiar: " + sizesToTakeFrom[sizesToTakeFrom.length - 1]) + ", " + (takeQuantityFromEach ? "pobierz ilość z każdej hałdy" : "pobierz materiał w miarę równomiernie"));
+            System.out.println("Próba pobrania z magazynu materiału " + materialType + " w ilości " + quantity + " jednostek, wariant: minimalny rozmiar: " + (sizesToTakeFrom.size()!=0?sizesToTakeFrom.get(0):null) + ", maksymalny rozmiar: " + (sizesToTakeFrom.size()!=0?sizesToTakeFrom.get(sizesToTakeFrom.size()-1):null) + ", " + (takeQuantityFromEach ? "pobierz ilość z każdej hałdy" : "pobierz materiał w miarę równomiernie"));
 
         if (quantity == 0)
             return true;
@@ -155,10 +161,6 @@ public class Material {
             return null;
 
         if (takeQuantityFromEach) { //z każdego bierzemy ilość jaką podaliśmy
-            //for (int i = 0; i < quantities.size(); i++) { //sprawdzamy czy każdy ma wystarczającą ilość, by pobrać z magazynu
-            //    if (ReturnQuantity(SizeVariant.values()[i]) < quantity)
-            //        return false;
-            //}
             for (SizeVariant sizeVariant : sizesToTakeFrom) { //sprawdzamy czy każdy ma wystarczającą ilość, by pobrać z magazynu
                 if (ReturnQuantity(sizeVariant) < quantity)
                     return false;
@@ -194,7 +196,7 @@ public class Material {
                     if (quantity <= 0)
                         break;
 
-                    SizeVariant maxValueIndex = sizesToTakeFrom[0];
+                    SizeVariant maxValueIndex = sizesToTakeFrom.get(0);
                     for (SizeVariant sizeVariant : sizesToTakeFrom) {
                         if (ReturnQuantity(sizeVariant) > ReturnQuantity(maxValueIndex))
                             maxValueIndex = sizeVariant;

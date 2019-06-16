@@ -10,6 +10,7 @@ public class Main {
         Functions.WaitFor(750);
 
         GravelPitManagment.main.Initialize();
+        GravelPitManagment.main.MainMenu();
 
         Menu.DisplayMenu("Dziękujemy za skorzystanie z programu!", "Wyłączanie aplikacji...", new MenuSettings());//when gets quit command
         Functions.WaitFor(1100);

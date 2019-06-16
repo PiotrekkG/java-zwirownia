@@ -3,6 +3,8 @@ package pl.GreczkaPiotr.javaZwirownia.material;
 import pl.GreczkaPiotr.javaZwirownia.Functions;
 import pl.GreczkaPiotr.javaZwirownia.menu.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -12,17 +14,17 @@ public class MaterialsMenu {
 
         String tempText;
         int type, size, quantity;
-        boolean takeFromEach = false;
+        Boolean takeFromEach = null;
         Material tempMaterial = null;
 
         while (true) {
-            Menu.DisplayMenu("Magazyn", "1) (s)tan magazynu\n2) (u)zupełnij surowiec\n3) (o)dejmij surowiec\n0) (p)owrót\n\nWpisz cyfrę znajdującą się lewej stronie lub znak w nawiasach,\nby przejść do wybranej opcji.", menuSettings);
+            Menu.DisplayMenu("Magazyn", "1) (s)tan magazynu\n2) (u)zupełnij surowiec\n3) (o)dejmij surowiec\n0) (p)owrót\n\nWpisz cyfrę znajdującą się po lewej stronie lub znak w nawiasach,\nby przejść do wybranej opcji.", menuSettings);
 
-            s = Functions.GetInputString("Wybrana opcja", new String[]{"0", "p", "1", "2", "3", "s", "u", "o"});
+            s = Functions.GetInputString("Wybrana opcja", List.of("0", "p", "1", "2", "3", "s", "u", "o"));
             switch (s) {
                 case "1":
                 case "s":
-                    Menu.DisplayMenu("Materiały", "Aktualny stan magazynu", menuSettings);
+                    Menu.DisplayMenu("Materiały", "Aktualny stan magazynu", false, menuSettings);
                     for (Material m : warehouseList) {
                         System.out.println(m);
                     }
@@ -37,22 +39,17 @@ public class MaterialsMenu {
                     for (int i = 0; i < warehouseList.size(); i++) {
                         tempText += (i + 1) + ") " + warehouseList.get(i).materialType + "\n";
                     }
-                    Menu.DisplayMenu("Uzupełnianie surowca", tempText + "\nWpisz cyfrę znajdującą się lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
-                    type = Functions.GetInputInt("Wybrany typ", new int[]{1, MaterialTypes.values().length});
+                    Menu.DisplayMenu("Uzupełnianie surowca", tempText + "\nWpisz cyfrę znajdującą się po lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
+                    type = Functions.GetInputInt("Wybrany typ", new int[]{1, warehouseList.size()});
 
-                    for (Material m : warehouseList) {
-                        if (m.materialType == MaterialTypes.values()[type]) {
-                            tempMaterial = m;
-                            break;
-                        }
-                    }
+                    tempMaterial = warehouseList.get(type-1);
 
                     System.out.println("\n\n");
                     tempText = "Wybierz rozmiar surowca do uzupełnienia:\n0) wszystkie na raz\n";
                     for (int i = 0; i < SizeVariant.values().length; i++) {
                         tempText += (i + 1) + ") " + SizeVariant.values()[i] + "\n";
                     }
-                    Menu.DisplayMenu("Uzupełnianie surowca", tempText + "\nWpisz cyfrę znajdującą się lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
+                    Menu.DisplayMenu("Uzupełnianie surowca", tempText + "\nWpisz cyfrę znajdującą się po lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
                     size = Functions.GetInputInt("Wybrany rozmiar", new int[]{0, SizeVariant.values().length});
 
                     System.out.println("\n\n");
@@ -80,29 +77,24 @@ public class MaterialsMenu {
                     for (int i = 0; i < warehouseList.size(); i++) {
                         tempText += (i + 1) + ") " + warehouseList.get(i).materialType + "\n";
                     }
-                    Menu.DisplayMenu("Odejmowanie surowca", tempText + "\nWpisz cyfrę znajdującą się lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
-                    type = Functions.GetInputInt("Wybrany typ", new int[]{1, MaterialTypes.values().length});
+                    Menu.DisplayMenu("Odejmowanie surowca", tempText + "\nWpisz cyfrę znajdującą się po lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
+                    type = Functions.GetInputInt("Wybrany typ", new int[]{1, warehouseList.size()});
 
-                    for (Material m : warehouseList) {
-                        if (m.materialType == MaterialTypes.values()[type]) {
-                            tempMaterial = m;
-                            break;
-                        }
-                    }
+                    tempMaterial = warehouseList.get(type-1);
 
                     System.out.println("\n\n");
                     tempText = "Wybierz rozmiar surowca do odjęcia:\n0) wszystkie na raz\n";
                     for (int i = 0; i < SizeVariant.values().length; i++) {
                         tempText += (i + 1) + ") " + SizeVariant.values()[i] + "\n";
                     }
-                    Menu.DisplayMenu("Odejmowanie surowca", tempText + "\nWpisz cyfrę znajdującą się lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
+                    Menu.DisplayMenu("Odejmowanie surowca", tempText + "\nWpisz cyfrę znajdującą się po lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
                     size = Functions.GetInputInt("Wybrany rozmiar", new int[]{0, SizeVariant.values().length});
 
                     if (size == 0) {
                         System.out.println("\n\n");
-                        tempText = "Jak chcesz odjąć ilość surowca:\n1) odejmij ilość od każdego z osobna\n2) odejmij podaną ilość od każdego łącznie\n";
-                        Menu.DisplayMenu("Odejmowanie surowca", tempText + "\nWpisz cyfrę znajdującą się lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
-                        takeFromEach = Functions.GetInputInt("Typ usuwania", new int[]{0, SizeVariant.values().length}) == 1;
+                        tempText = "Jak chcesz odjąć ilość surowca:\n1) odejmij łącznie ilość w miarę równomiernie\n2) odejmij ilość od każdego z osobna\n";
+                        Menu.DisplayMenu("Odejmowanie surowca", tempText + "\nWpisz cyfrę znajdującą się po lewej stronie wybranej opcji,\nby wybrać element.", menuSettings);
+                        takeFromEach = Functions.GetInputInt("Typ usuwania", List.of(1, 2)) == 2;
                     }
 
                     System.out.println("\n\n");
@@ -114,9 +106,9 @@ public class MaterialsMenu {
                     System.out.println("\n\n");
                     if(tempMaterial != null) {
                         if (size == 0)
-                            System.out.println(tempMaterial.TakeFrom(quantity, takeFromEach) ? "Pobrano ilość pomyślnie" : "Nie wystarczające materiały lub błędna wartość");
+                            System.out.println(tempMaterial.TakeFrom(quantity, takeFromEach) ? "Pobrano ilość pomyślnie" : "Niewystarczające materiały lub błędna wartość");
                         else
-                            System.out.println(tempMaterial.TakeFrom(quantity, SizeVariant.values()[size-1]) ? "Pobrano ilość pomyślnie" : "Nie wystarczające materiały lub błędna wartość");
+                            System.out.println(tempMaterial.TakeFrom(quantity, SizeVariant.values()[size-1]) ? "Pobrano ilość pomyślnie" : "Niewystarczające materiały lub błędna wartość");
                     }
 
                     Functions.PressKeyToContinue();

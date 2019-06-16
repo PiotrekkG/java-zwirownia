@@ -1,6 +1,7 @@
 package pl.GreczkaPiotr.javaZwirownia;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Functions {
@@ -65,11 +66,11 @@ public class Functions {
 
     /**
      * Prosi o podanie wartości (typu int) i sprawdza na podstawie podanych argumentów czy wartość zgadza się z wymaganym wzorcem (podana wartość zawiera się w tablicy intów)
-     * @param allowOnlyInput tablica dozwolonych wartości
      * @param text Tekst informujący o wprowadzanych danych
+     * @param allowOnlyInput tablica dozwolonych wartości
      * */
-    public static int GetInputInt(int[] allowOnlyInput, String text) {
-        if(allowOnlyInput.length == 0)
+    public static int GetInputInt(String text, List<Integer> allowOnlyInput) {
+        if(allowOnlyInput.size() == 0)
             return GetInputInt(text, true);
 
         Scanner inputScanner = new Scanner(System.in);
@@ -88,7 +89,7 @@ public class Functions {
             } else {
                 System.out.print("Nieprawidłowa wartość, prawidłowe to: ");
                 for (var a : allowOnlyInput) {
-                    if (a != allowOnlyInput[0])
+                    if (a != allowOnlyInput.get(0))
                         System.out.print(", ");
 
                     System.out.print(a);
@@ -105,8 +106,8 @@ public class Functions {
      * @param text Tekst informujący o wprowadzanych danych
      * @param allowOnlyInput tablica dozwolonych wartości
      * */
-    public static String GetInputString(String text, String[] allowOnlyInput) {
-        if(allowOnlyInput.length == 0)
+    public static String GetInputString(String text, List<String> allowOnlyInput) {
+        if(allowOnlyInput.size() == 0)
             return GetInputString(text);
 
         Scanner inputScanner = new Scanner(System.in);
@@ -125,7 +126,7 @@ public class Functions {
             } else {
                 System.out.print("Nieprawidłowa wartość, prawidłowe to: ");
                 for (var a : allowOnlyInput) {
-                    if (a != allowOnlyInput[0])
+                    if (a != allowOnlyInput.get(0))
                         System.out.print(", ");
 
                     System.out.print(a);
@@ -250,10 +251,26 @@ public class Functions {
      * @param arr tablica
      * @param targetValue szukany element
      * */
+    public static boolean contains(List<String> arr, String targetValue) {
+        return arr.contains(targetValue);
+    }
+    /**
+     * Sprawdza czy element znajduje się w podanej tablicy.
+     * @param arr tablica
+     * @param targetValue szukany element
+     * */
     public static boolean contains(String[] arr, String targetValue) {
         return Arrays.asList(arr).contains(targetValue);
     }
 
+    /**
+     * Sprawdza czy element znajduje się w podanej tablicy.
+     * @param arr tablica
+     * @param targetValue szukany element
+     * */
+    public static boolean contains(List<Integer> arr, int targetValue) {
+        return arr.contains(targetValue);
+    }
     /**
      * Sprawdza czy element znajduje się w podanej tablicy.
      * @param arr tablica

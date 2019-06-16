@@ -11,77 +11,40 @@ public class GravelPitManagment implements IGravelPitSystem {
     public static GravelPitManagment main = new GravelPitManagment();
 
     public boolean silentMode = false;
-    public List<Material> warehouseList = new ArrayList<>();
-    public List<Order> ordersList = new ArrayList<>();
-    public MenuSettings menuSettings = new MenuSettings(0, '=', '|', '*');
+    private List<Material> warehouseList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
+    private MenuSettings menuSettings = new MenuSettings(0, '=', '|', '*');
 
     @Override
     public void Initialize() {
         silentMode = true;
 
         //dodajemy do tablicy materiały, jakie produkuje żwirownia, można je zainicjować z wartością/ilością początkową
-        warehouseList.add(new Material(MaterialTypes.Sand, 54));
-        warehouseList.add(new Material(MaterialTypes.Gravel, 7));
-        warehouseList.add(new Material(MaterialTypes.Rock, 20));
-        warehouseList.add(new Material(MaterialTypes.Chippings));
         warehouseList.add(new Material(MaterialTypes.GravelMix));
+        warehouseList.add(new Material(MaterialTypes.Sand, 54));
+        warehouseList.add(new Material(MaterialTypes.Sand, 12)); //na przykład drugi rodzaj piasku - dlatego nowy obiekt
+        warehouseList.add(new Material(MaterialTypes.Chippings));
+        warehouseList.add(new Material(MaterialTypes.Rock, 186));
+        warehouseList.add(new Material(MaterialTypes.Gravel, 7));
+        warehouseList.add(new Material(MaterialTypes.ExampleType, 250));
+
+        orderList.add(new Order("Zamówienie na pospółkę", warehouseList.get(0), true, 1 ));
+        orderList.add(new Order("zamówienie grysu", warehouseList.get(3), 9 ));
+        orderList.add(new Order("piasek pod drogę", warehouseList.get(2), SizeVariant.Big, 25));
+        orderList.add(new Order("kamień (różne rozmiary)", warehouseList.get(4), List.of(SizeVariant.VerySmall, SizeVariant.Small, SizeVariant.Medium, SizeVariant.Big), 17));
+        orderList.add(new Order("zamówienie konkretnych ilości kamienia", warehouseList.get(4), List.of(SizeVariant.VerySmall, SizeVariant.Small, SizeVariant.Medium),  true,17));
+        orderList.get(2).isRealized = true;
 
         silentMode = false;
-        ShowMainMenu();
     }
 
     @Override
-    public void production(MaterialTypes materialType, int quantity) {
-        for (Material m : warehouseList) {
-            if (m.materialType == materialType) {
-                m.AddQuantity(quantity);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void production(MaterialTypes materialType, SizeVariant materialSize, int quantity) {
-        for (Material m : warehouseList) {
-            if (m.materialType == materialType) {
-                m.AddQuantity(quantity, materialSize);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public boolean order(MaterialTypes materialType, int quantity) {
-        for (Material m : warehouseList) {
-            if (m.materialType == materialType) {
-                return m.TakeFrom(quantity, false);
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean order(MaterialTypes materialType, SizeVariant materialSize, int quantity) {
-        for (Material m : warehouseList) {
-            if (m.materialType == materialType) {
-                return m.TakeFrom(quantity, materialSize);
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean order(MaterialTypes materialType, SizeVariant minMaterialSize, SizeVariant maxMaterialSize, int quantity) {
-        return false;
-    }
-
-
-    private void ShowMainMenu() {
+    public void MainMenu() {
         String s = "";
         while (true) {
-            Menu.DisplayMenu("System Obsługi Żwirowni", "1) (m)agazyn\n2) (z)amówienia\n0) w(y)jście\n\nWpisz cyfrę znajdującą się lewej stronie lub znak w nawiasach,\nby przejść do wybranej opcji.", menuSettings);
+            Menu.DisplayMenu("System Obsługi Żwirowni", "1) (m)agazyn\n2) (z)amówienia\n0) w(y)jście\n\nWpisz cyfrę znajdującą się po lewej stronie lub znak w nawiasach,\nby przejść do wybranej opcji.", menuSettings);
 
-            s = Functions.GetInputString("Wybrana opcja", new String[]{"0", "y", "1", "2", "m", "z"});
+            s = Functions.GetInputString("Wybrana opcja", List.of("0", "y", "1", "2", "m", "z"));
             switch (s) {
                 case "1":
                 case "m":
@@ -89,7 +52,7 @@ public class GravelPitManagment implements IGravelPitSystem {
                     break;
                 case "2":
                 case "z":
-                    OrderMenu.ShowOrderMenu(menuSettings, ordersList, warehouseList);
+                    OrderMenu.ShowOrderMenu(menuSettings, orderList, warehouseList);
                     break;
                 case "0":
                 case "y":
