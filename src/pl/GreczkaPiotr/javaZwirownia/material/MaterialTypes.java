@@ -1,4 +1,4 @@
-package pl.GreczkaPiotr.javaZwirownia.material;
+package pl.greczkapiotr.javazwirownia.material;
 
 public enum MaterialTypes {
     Sand("Piasek"), Gravel("Żwir"), Rock("Kamień"), Chippings("Grys"), GravelMix("Pospółka"), ExampleType("Przykładowy typ materiału");

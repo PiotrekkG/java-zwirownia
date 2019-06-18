@@ -1,4 +1,4 @@
-package pl.GreczkaPiotr.javaZwirownia.material;
+package pl.greczkapiotr.javazwirownia.material;
 
 public enum SizeVariant {
     VerySmall("bardzo drobne"), Small("drobne"), Medium("średnie"), Big("duże"), VeryBig("bardzo duże");

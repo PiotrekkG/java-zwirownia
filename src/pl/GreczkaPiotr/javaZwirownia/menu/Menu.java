@@ -1,4 +1,4 @@
-package pl.GreczkaPiotr.javaZwirownia.menu;
+package pl.greczkapiotr.javazwirownia.menu;
 
 public class Menu {
     /**
@@ -48,11 +48,11 @@ public class Menu {
         }
         output += " " + menuSettings.verticalBorderChar + "\n";
 
-        if (description != "") {
+        if (!description.isBlank()) {
             output += borderTemplate;
 
-            String descriptionLines[] = description.split("\n");
-            for (var line : descriptionLines) {
+            String[] descriptionLines = description.split("\n");
+            for (String line : descriptionLines) {
                 if (line.length() == 0)
                     output += borderTemplate;
                 else

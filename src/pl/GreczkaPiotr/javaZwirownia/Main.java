@@ -1,7 +1,7 @@
-package pl.GreczkaPiotr.javaZwirownia;
+package pl.greczkapiotr.javazwirownia;
 
-import pl.GreczkaPiotr.javaZwirownia.menu.Menu;
-import pl.GreczkaPiotr.javaZwirownia.menu.MenuSettings;
+import pl.greczkapiotr.javazwirownia.menu.Menu;
+import pl.greczkapiotr.javazwirownia.menu.MenuSettings;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,8 +9,10 @@ public class Main {
 
         Functions.WaitFor(750);
 
-        GravelPitManagment.main.Initialize();
-        GravelPitManagment.main.MainMenu();
+        IGravelPitSystem gravelPitSystem = new GravelPitManagement();
+
+        gravelPitSystem.Initialize();
+        gravelPitSystem.MainMenu();
 
         Menu.DisplayMenu("Dziękujemy za skorzystanie z programu!", "Wyłączanie aplikacji...", new MenuSettings());//when gets quit command
         Functions.WaitFor(1100);

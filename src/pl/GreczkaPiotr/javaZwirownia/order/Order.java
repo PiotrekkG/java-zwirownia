@@ -1,14 +1,10 @@
-package pl.GreczkaPiotr.javaZwirownia.order;
+package pl.greczkapiotr.javazwirownia.order;
 
-import pl.GreczkaPiotr.javaZwirownia.Functions;
-import pl.GreczkaPiotr.javaZwirownia.GravelPitManagment;
-import pl.GreczkaPiotr.javaZwirownia.material.Material;
-import pl.GreczkaPiotr.javaZwirownia.material.MaterialTypes;
-import pl.GreczkaPiotr.javaZwirownia.material.SizeVariant;
-import pl.GreczkaPiotr.javaZwirownia.menu.Menu;
+import pl.greczkapiotr.javazwirownia.material.Material;
+import pl.greczkapiotr.javazwirownia.GravelPitManagement;
+import pl.greczkapiotr.javazwirownia.material.SizeVariant;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Order {
@@ -52,7 +48,7 @@ public class Order {
     }
 
     public Boolean RealizeOrder() {
-        if (!GravelPitManagment.main.silentMode)
+        if (!GravelPitManagement.main.silentMode)
             System.out.println("Próba realizacji zamówienia...");
 
         if (isRealized) {
@@ -66,15 +62,41 @@ public class Order {
         if (state == null) {
             System.out.println("Istnieje błąd w zamówieniu!");
         } else if (state) {
-            System.out.println("Zrealizowano zamówienie pomyślnie!");
+            System.out.println("Zamówienia zostało zrealizowane pomyślnie!");
             isRealized = true;
         } else {
-            System.out.println("Niewystarczające materiały lub błędna wartość");
+            System.out.println("Brak wystarczających materiałów, aby zrealizować zamówienie!");
         }
 
         return state;
     }
 
+
+    public String shortUnitDescription() {
+        int size = sizeVariant.size();
+        String description;
+
+        if (takeFromEach) {
+            description =
+                    "łącznie " +
+                            (size == 0 ?
+                                    (quantity * SizeVariant.values().length)
+                                    :
+                                    (quantity * size)
+                            )
+                            + " (każdy rozmiar po " + quantity + ")";
+        } else {
+            if (size == 0) {
+                description = "łącznie " + quantity + " (pobieranie ze wszystkich dostępnych rozmiarów w miarę równomiernie)";
+            } else if (size == 1) {
+                description = quantity + " (pobieranie z wybranego rozmiaru)";
+            } else {
+                description = "łącznie " + quantity + " (pobieranie z wybranych dostępnych rozmiarów w miarę równomiernie)";
+            }
+        }
+
+        return description;
+    }
 
     @Override
     public String toString() {
@@ -86,7 +108,8 @@ public class Order {
                                 "\n- rozmiar: " + sizeVariant.get(0) :
                                 "\n- rozmiar od: " + sizeVariant.get(0) + " do: " + sizeVariant.get(sizeVariant.size() - 1)) :
                         "\n- rozmiar: każdy") +
-                "\n- ilość: " + (takeFromEach ? (sizeVariant.size() == 0 ? "łącznie " + (quantity * SizeVariant.values().length) + " (każdy rozmiar po " + quantity + " sztuk)" : "łącznie " + (quantity * sizeVariant.size()) + " (każdy rozmiar po " + quantity + " sztuk)") : "łącznie " + quantity) +
-                "\n- zrealizowano: " + (isRealized ? "tak" : "nie");
+                "\n- ilość: " + shortUnitDescription() +
+                "\n- zrealizowano: " + (isRealized ? "tak" : "nie") +
+                "\n\nAktualny stan powyższego surowca w magazynie: " + materialTarget.toString();
     }
 }

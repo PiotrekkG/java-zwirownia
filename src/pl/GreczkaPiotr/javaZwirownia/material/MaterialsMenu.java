@@ -1,28 +1,27 @@
-package pl.GreczkaPiotr.javaZwirownia.material;
+package pl.greczkapiotr.javazwirownia.material;
 
-import pl.GreczkaPiotr.javaZwirownia.Functions;
-import pl.GreczkaPiotr.javaZwirownia.menu.*;
+import pl.greczkapiotr.javazwirownia.Functions;
+import pl.greczkapiotr.javazwirownia.menu.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 public class MaterialsMenu {
     public static void ShowMaterialsMenu(MenuSettings menuSettings, List<Material> warehouseList) {
-        String s = "";
+        String s;
 
         String tempText;
         int type, size, quantity;
         Boolean takeFromEach = null;
-        Material tempMaterial = null;
+        Material tempMaterial;
 
         while (true) {
             Menu.DisplayMenu("Magazyn", "1) (s)tan magazynu\n2) (u)zupełnij surowiec\n3) (o)dejmij surowiec\n0) (p)owrót\n\nWpisz cyfrę znajdującą się po lewej stronie lub znak w nawiasach,\nby przejść do wybranej opcji.", menuSettings);
 
             s = Functions.GetInputString("Wybrana opcja", List.of("0", "p", "1", "2", "3", "s", "u", "o"));
             switch (s) {
-                case "1":
+
+                case "1"://stan magazynu
                 case "s":
                     Menu.DisplayMenu("Materiały", "Aktualny stan magazynu", false, menuSettings);
                     for (Material m : warehouseList) {
@@ -31,7 +30,8 @@ public class MaterialsMenu {
 
                     Functions.PressKeyToContinue();
                     break;
-                case "2":
+
+                case "2"://uzupełnij surowiec
                 case "u":
                     //pyta do jakiego typu chce dodać, pyta o ilość i czy chce dodać do wszystkich czy do jednego tylko
                     System.out.println("\n\n");
@@ -68,7 +68,8 @@ public class MaterialsMenu {
 
                     Functions.PressKeyToContinue();
                     break;
-                case "3":
+
+                case "3"://odejmij surowiec
                 case "o":
                     //pyta od jakiego typu chce odjąć, pyta o ilość i czy chce odjąć wartość od wszystkich czy jednego rozmiaru i jak wszystkich to czy wszystkich na raz (w sumie $ilość*ilość rozmiarów), czy w sumie $ilość)
 
@@ -113,10 +114,12 @@ public class MaterialsMenu {
 
                     Functions.PressKeyToContinue();
                     break;
-                case "0":
+
+                case "0"://powrót
                 case "p":
                     System.out.println(":Powrót do ekranu głównego:");
                     return;
+
                 default: //nigdy nie powinien do tego momentu program dojść - GetInputString filtruje
                     System.out.println("Błędny wybór.");
                     break;

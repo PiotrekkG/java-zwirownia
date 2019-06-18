@@ -1,6 +1,6 @@
-package pl.GreczkaPiotr.javaZwirownia.material;
+package pl.greczkapiotr.javazwirownia.material;
 
-import pl.GreczkaPiotr.javaZwirownia.GravelPitManagment;
+import pl.greczkapiotr.javazwirownia.GravelPitManagement;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -34,7 +34,7 @@ public class Material {
     //ADD
 
     public Boolean AddQuantity(int quantity, SizeVariant addToSize) {
-        if (!GravelPitManagment.main.silentMode)
+        if (!GravelPitManagement.main.silentMode)
             System.out.println("Próba dołożenia do materiału " + materialType + " sztuk w ilości " + quantity + " jednostek (aktualnie: " + quantities.get(addToSize) + "), wariant: rozmiar " + addToSize);
 
         if (quantity == 0)
@@ -47,7 +47,7 @@ public class Material {
     }
 
     public Boolean AddQuantity(int quantity) {
-        if (!GravelPitManagment.main.silentMode)
+        if (!GravelPitManagement.main.silentMode)
             System.out.println("Próba dołożenia do materiału " + materialType + " sztuk w ilości " + quantity + " jednostek, wariant: do każdego rozmiaru");
 
         if (quantity == 0)
@@ -65,7 +65,7 @@ public class Material {
     //TAKE
 
     public Boolean TakeFrom(int quantity, SizeVariant sizeToTakeFrom) {
-        if (!GravelPitManagment.main.silentMode)
+        if (!GravelPitManagement.main.silentMode)
             System.out.println("Próba pobrania z magazynu materiału " + materialType + " w ilości " + quantity + " jednostek (dostępne: " + quantities.get(sizeToTakeFrom) + "), wariant: rozmiar " + sizeToTakeFrom);
 
         if (quantity == 0)
@@ -81,7 +81,7 @@ public class Material {
     }
 
     public Boolean TakeFrom(int quantity, Boolean takeQuantityFromEach) {
-        if (!GravelPitManagment.main.silentMode)
+        if (!GravelPitManagement.main.silentMode)
             System.out.println("Próba pobrania z magazynu materiału " + materialType + " w ilości " + quantity + " jednostek, wariant: " + (takeQuantityFromEach ? "pobierz ilość z każdej hałdy" : "pobierz materiał w miarę równomiernie"));
 
         if (quantity == 0)
@@ -90,10 +90,6 @@ public class Material {
             return null;
 
         if (takeQuantityFromEach) { //z każdego bierzemy ilość jaką podaliśmy
-            //for (int i = 0; i < quantities.size(); i++) { //sprawdzamy czy każdy ma wystarczającą ilość, by pobrać z magazynu
-            //    if (ReturnQuantity(SizeVariant.values()[i]) < quantity)
-            //        return false;
-            //}
             for (SizeVariant sizeVariant : SizeVariant.values()) { //sprawdzamy czy każdy ma wystarczającą ilość, by pobrać z magazynu
                 if (ReturnQuantity(sizeVariant) < quantity)
                     return false;
@@ -127,7 +123,7 @@ public class Material {
                 }
             } else {
                 while (true) {
-                    if (quantity <= 0)
+                    if (quantity <= 0) //pętla nieskończona - ponieważ gdy jest w warunku, to IDE krzyczy, że punkt jest nieosiągalny ze względu na warunek na dole pętli
                         break;
 
                     SizeVariant maxValueIndex = SizeVariant.values()[0];
@@ -152,7 +148,7 @@ public class Material {
         if (sizesToTakeFrom.size() == 1)
             return TakeFrom(quantity, sizesToTakeFrom.get(0));
 
-        if (!GravelPitManagment.main.silentMode)
+        if (!GravelPitManagement.main.silentMode)
             System.out.println("Próba pobrania z magazynu materiału " + materialType + " w ilości " + quantity + " jednostek, wariant: minimalny rozmiar: " + (sizesToTakeFrom.size()!=0?sizesToTakeFrom.get(0):null) + ", maksymalny rozmiar: " + (sizesToTakeFrom.size()!=0?sizesToTakeFrom.get(sizesToTakeFrom.size()-1):null) + ", " + (takeQuantityFromEach ? "pobierz ilość z każdej hałdy" : "pobierz materiał w miarę równomiernie"));
 
         if (quantity == 0)
@@ -193,7 +189,7 @@ public class Material {
                 }
             } else {
                 while (true) {
-                    if (quantity <= 0)
+                    if (quantity <= 0) //pętla nieskończona - ponieważ gdy jest w warunku, to IDE krzyczy, że punkt jest nieosiągalny ze względu na warunek na dole pętli
                         break;
 
                     SizeVariant maxValueIndex = sizesToTakeFrom.get(0);
@@ -216,16 +212,15 @@ public class Material {
     // OTHERS
 
     @Override
-    public String toString() { //własny .toString()
-        String quantities = "";
-        //for (int i = 0; i < this.quantities.size(); i++) {
+    public String toString() { //nadpisana metoda .toString() dla tego obiektu
+        StringBuilder quantities = new StringBuilder();
         for (SizeVariant sizeVariant : SizeVariant.values()) {
-            if (quantities != "")
-                quantities += "; ";
+            if (!quantities.toString().isBlank())
+                quantities.append("; ");
 
-            quantities += sizeVariant + " - " + ReturnQuantity(sizeVariant);
+            quantities.append(sizeVariant + " - " + ReturnQuantity(sizeVariant));
         }
 
-        return materialType + "\n\t• ilości w magazynie: [" + quantities + "]";
+        return materialType + "\n\t> ilości w magazynie: [" + quantities + "]";
     }
 }
