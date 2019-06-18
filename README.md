@@ -5,18 +5,18 @@ Prosty system obsługi wydobycia oraz sprzedaży na żwirowni wykonany w języku
 
 
 ## Funkcje
-[x] możliwość dodania rodzaju wydobywanego surowca (urobku),
-[x] urobek podzielony/posortowany według wielkości - średnicy (domyślny podział to: bardzo drobne, drobne, średnie, duże),
-[x] księgowanie, wyświetlanie i zarządzanie zmagazynowaną ilością wydobytego surowca,
-[x] zarządzanie zamówieniami; tworzenie, realizacja i usuwanie,
-[x] realizacja zamówienia, gdy stan "magazynu" na to pozwala, jeśli nie - wypisywana jest informacja; tak samo pomniejszając ilość poprzez zarządzanie magazynem,
-[x] działanie "na żywo".
+- możliwość dodania rodzaju wydobywanego surowca (urobku),
+- urobek podzielony/posortowany według wielkości - średnicy (domyślny podział to: bardzo drobne, drobne, średnie, duże),
+- księgowanie, wyświetlanie i zarządzanie zmagazynowaną ilością wydobytego surowca,
+- zarządzanie zamówieniami; tworzenie, realizacja i usuwanie,
+- realizacja zamówienia, gdy stan "magazynu" na to pozwala, jeśli nie - wypisywana jest informacja; tak samo pomniejszając ilość poprzez zarządzanie magazynem,
+- działanie "na żywo".
 
 
 
 ## Uruchomienie
 **Wymagane dodatkowe aplikacje:**
-- Java w wersji 12 ([Pobieranie](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html) )
+- Java w wersji 12 ([Pobieranie](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html))
 
 _Zakładając, że:_
     korzystamy z systemu Windows,
@@ -88,11 +88,12 @@ Jeśli chcesz załadować wartości przykładowe należy wpisać wartość "t", 
 
 ## Rady
 - Aby upewnić się, że żwirownia zrealizuje możlwie jak największą ilość zamówień, przy tworzeniu zamówienia należy wybierać dla konkretnego materiału:
-    1) **jeden, wybrany rozmiar**, dla którego mamy pewność, że jest dostępny w magazynie w podanym rozmiarze
-    2) **jak największy przedział** (najlepiej wszystkie dostępne) oraz należy stosować to **w połączeniu z opcją** dostępną podczas pytania: "Jak chcesz zrealizować zamówienie": **"odejmij łącznie ilość w miarę równomiernie"**.
+    1. **jeden, wybrany rozmiar**, dla którego mamy pewność, że jest dostępny w magazynie w podanym rozmiarze
+    2. **jak największy przedział** (najlepiej wszystkie dostępne) oraz należy stosować to **w połączeniu z opcją** dostępną podczas pytania: "Jak chcesz zrealizować zamówienie": **"odejmij łącznie ilość w miarę równomiernie"**.
         Opcja "odejmij ilość od każdego z osobna" jest najmniej wydajna (pod względem ekonomicznym), ponieważ odejmuje od każdego wybranego rozmiaru konkretną ilość surowca - jest to jedynie zalecane, gdy klient żwirowni potrzebuje konkretną liczbę jednostek dla odpowiednich (lub wszystkich, gdy nie wybrano konkretnych) rozmiarów.
 
     **Przykład pokazujący poprawność rady (opcja druga):**
+```
         Przyjmijmy, że do żwirowni trafia zamówienie na surowiec: Żwir
         jego stan to: \[bardzo drobne - 25; drobne - 32; średnie - 23; duże - 37; bardzo duże - 49]
         Mając dwa zamówienia:
@@ -119,5 +120,5 @@ Jeśli chcesz załadować wartości przykładowe należy wpisać wartość "t", 
         Z kolei realizując drugie zamówienie otrzymamy informację "Zamówienia zostało zrealizowane pomyślnie!", ponieważ system automatycznie postara się dobrać ilość spośród wybranych materiałów, tak, aby zamówienie zawsze zostało zrealizowane, jeśli tylko suma ilości potrzebnych wielkości jest większa, bądź równa ilości w magazynie.
         Po realizacji zamówienia, stan tego surowca w magazynie wynosi: \[bardzo drobne - 25; drobne - 8; średnie - 0; duże - 9; bardzo duże - 49].
         Zwróć uwagę jak system poradził sobie z brakiem dwóch jednostek w rozmiarze średnie (było dostępnych 23, a preferowana ilość to 25 [bo: 75 łącznie / 3 rozmiary = 25 jednostek na rozmiar]): pobrał w zamian po jednej z rozmiarów drobne oraz duże.
-
+```
 
