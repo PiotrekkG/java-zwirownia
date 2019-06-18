@@ -128,3 +128,23 @@ Po realizacji zamówienia, stan tego surowca w magazynie wynosi: \[bardzo drobne
 
 Zwróć uwagę jak system poradził sobie z brakiem dwóch jednostek w rozmiarze średnie (było dostępnych 23, a preferowana ilość to 25 \[bo: 75 łącznie / 3 rozmiary = 25 jednostek na rozmiar]): pobrał w zamian po jednej z rozmiarów drobne oraz duże.
 
+
+## Opis struktury i działanie kodu
+Program podzielony jest na dwa główne moduły:
+- magazynu,
+- zamówień.
+
+W module magazynu operacje przebiegają na obiekcie typu Material, który posiada metody pozwalające odjąć, bądź dodać, określoną ilość z całości, konkretnych wielkości (np. małe i średnie) lub tylko z jednej wielkości materiału.
+W metodzie odjęcia ilości surowca możliwe jest przekazanie informacji w przypadku podania więcej niż jednej wielkości, czy ilość ma zostać odjęta od każdej po równo, czy łącznie (ale nierównomiernie, gdy jest niemożliwe utrzymanie równomierności).
+W module tym też możliwe jest dodanie kolejnych (własnych) możliwych wielkości do wybrania - enumerator SizeVariant oraz typów materiałów (np. kamień) - enumerator MaterialTypes - możliwe dodanie kolejnych typów i wielkości poprzez edycję w kodzie.
+
+W module zamówień na podstawie listy z materiałami z modułu magazynu przetwarzane są zamówienia.
+Przechowuje on informacje o zamówieniach (zrealizowanych i niezrealizowanych), możliwe jest tworzenie nowych i zarządzanie nimi.
+Realizacja bazuje na istniejących obiektach typu Material poprzez odwołanie się do nich.
+
+Poza tymi głównymi modułami, jednym z mniejszych, ale nadal ważnych modułów jest moduł menu, który pozwala wyświetlać nam sformatowany do potrzeb i według ustawień wygląd aplikacji, prezentacji danych w modułach i ich obsługi.
+
+W celu łatwiejszej obsługi wprowadzanych danych w klasie Functions zostały stworzone statyczne metody pilnujące poprawności wprowadzanych danych. Jeśli na przykład oczekujemy w danym miejscu w programie łańcucha znaków, który ma określoną długość lub jest zawarty w podanej liście Stringów, wystarczy użyć konkretnej metody z tej klasy - każda z opisem znajdują się w klasie Functions.
+W tej klasie znajdują się równeż dwie dodatkowe funkcje; uśpienie programu oraz procedura oczekująca na wciśnięcie klawisza, aby kontynuować działanie programu.
+
+Aby zarządzać początkowymi wartościami (zwłaszcza po dodaniu nowych typów materiałów), należy udać się do klasy GravelPitManagement i zmodyfikować dane w procedurze Initialize.
