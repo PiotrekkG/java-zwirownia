@@ -106,7 +106,7 @@ public class Order {
                 (sizeVariant.size() != 0 ?
                         (sizeVariant.size() == 1 ?
                                 "\n- rozmiar: " + sizeVariant.get(0) :
-                                "\n- rozmiar od: " + sizeVariant.get(0) + " do: " + sizeVariant.get(sizeVariant.size() - 1)) :
+                                "\n- rozmiary od: " + sizeVariant.get(0) + ", do: " + sizeVariant.get(sizeVariant.size() - 1)) :
                         "\n- rozmiar: każdy") +
                 "\n- ilość: " + shortUnitDescription() +
                 "\n- zrealizowano: " + (isRealized ? "tak" : "nie") +
