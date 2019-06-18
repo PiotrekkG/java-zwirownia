@@ -21,13 +21,17 @@ Prosty system obsługi wydobycia oraz sprzedaży na żwirowni wykonany w języku
 _Zakładając, że:_
 - korzystamy z systemu Windows,
 - Java w wersji 12 zainstalowana jest na komputerze w lokalizacji: "C:\Program Files\Java\jdk-12.0.1",
-- oraz, że aplikacja znajduje się w lokalizacji: "C:\" i jest nazwana "java-zwirownia.jar",
+- oraz, że aplikacja znajduje się w lokalizacji: "C:\" i jest nazwana "java-zwirownia.jar"
+
 aplikację można włączyć poprzez wiersz poleceń lub PowerShell wpisując polecenie (ze cudzysłowami):
 - "C:\Program Files\Java\jdk-12.0.1\bin\java.exe" -jar "C:\java-zwirownia.jar"
 
-_Szybkie uruchomienie wiersza poleceń:
-W Menu Start wyszukaj: CMD i uruchom LUB wciśnij kombinację klawiszy WIN + R, a następnie w polu tekstowym wpisz CMD i zatwierdź.
-Gdy pojawi się konsola powyższe polecenie należy wkleić (najczęściej klikając prawy przycisk) i wywołać klikając ENTER._
+
+_Szybkie uruchomienie wiersza poleceń:_
+
+_W Menu Start wyszukaj: CMD i uruchom LUB wciśnij kombinację klawiszy WIN + R, a następnie w polu tekstowym wpisz CMD i zatwierdź._
+
+_Gdy pojawi się konsola powyższe polecenie należy wkleić (najczęściej klikając prawy przycisk) i wywołać klikając ENTER._
 
 
 
@@ -88,28 +92,30 @@ Jeśli chcesz załadować wartości przykładowe należy wpisać wartość "t", 
 
 ## Rady
 Aby upewnić się, że żwirownia zrealizuje możliwie jak największą ilość zamówień, przy tworzeniu zamówienia należy kierować się poniższymi:
-    1) wybierać **jeden, wybrany rozmiar**, dla którego mamy pewność, że jest dostępny w magazynie w podanym rozmiarze,
-    2) wybierać **jak największy przedział** (najlepiej wszystkie dostępne) oraz należy stosować to **w połączeniu z opcją** dostępną podczas pytania: "Jak chcesz zrealizować zamówienie": **"odejmij łącznie ilość w miarę równomiernie"**.
-    3) nawiązując do wyżej wspomnianej opcji, podczas wymienionego pytania, do wyboru jest jeszcze jedna opcja: "odejmij ilość od każdego z osobna" - jednak jest ona najmniej wydajna pod względem ekonomicznym, ponieważ odejmuje od każdego wybranego rozmiaru konkretną ilość surowca - jest to jedynie zalecane, gdy klient żwirowni potrzebuje konkretną liczbę jednostek dla odpowiednich (lub wszystkich, gdy nie wybrano konkretnych) rozmiarów.
+1) wybierać **jeden, wybrany rozmiar**, dla którego mamy pewność, że jest dostępny w magazynie w podanym rozmiarze,
+2) wybierać **jak największy przedział** (najlepiej wszystkie dostępne) oraz należy stosować to **w połączeniu z opcją** dostępną podczas pytania: "Jak chcesz zrealizować zamówienie": **"odejmij łącznie ilość w miarę równomiernie"**.
+3) nawiązując do wyżej wspomnianej opcji, podczas wymienionego pytania, do wyboru jest jeszcze jedna opcja: "odejmij ilość od każdego z osobna" - jednak jest ona najmniej wydajna pod względem ekonomicznym, ponieważ odejmuje od każdego wybranego rozmiaru konkretną ilość surowca - jest to jedynie zalecane, gdy klient żwirowni potrzebuje konkretną liczbę jednostek dla odpowiednich (lub wszystkich, gdy nie wybrano konkretnych) rozmiarów.
 
 
 **Przykład pokazujący poprawność rady (opcja druga oraz trzecia):**
-Przyjmijmy, że do żwirowni trafia zamówienie na surowiec: Żwir
-jego stan to: \[bardzo drobne - 25; drobne - 32; średnie - 23; duże - 37; bardzo duże - 49]
-Mając dwa zamówienia:
-    1)
-        | - opis zamówienia: Zamówienie żwiru - konkretne ilości
-        | - rodzaj materiału: Żwir
-        | - rozmiar od: drobne, do: duże
-        | - ilość: łącznie 75 (każdy rozmiar po 25)
-    2)
-        | - opis zamówienia: Zamówienie żwiru - do pobrania łącznie
-        | - rodzaj materiału: Żwir
-        | - rozmiar od: drobne, do: duże
-        | - ilość: łącznie 75 (pobieranie z wybranych dostępnych rozmiarów w miarę równomiernie)
 
-Zwróć uwagę na linijkę z rozmiarem, jest taka sama.
-Również zwróć uwagę na informację o rozmiarze do pobrania - jest to istotna informacja.
+Przyjmijmy, że do żwirowni trafia zamówienie na surowiec: Żwir
+
+jego stan to: \[bardzo drobne - 25; drobne - 32; średnie - 23; duże - 37; bardzo duże - 49]
+
+Mając dwa zamówienia:
+1) Zamówienie 1:
+   - opis zamówienia: Zamówienie żwiru - konkretne ilości
+   - rodzaj materiału: Żwir
+   - rozmiar od: drobne, do: duże
+   - ilość: łącznie 75 (każdy rozmiar po 25)
+2) Zamówienie 2:
+   - opis zamówienia: Zamówienie żwiru - do pobrania łącznie
+   - rodzaj materiału: Żwir
+   - rozmiar od: drobne, do: duże
+   - ilość: łącznie 75 (pobieranie z wybranych dostępnych rozmiarów w miarę równomiernie)
+
+> Zwróć uwagę na linijkę z rozmiarem oraz o ilości do pobrania - są to istotne informacje.
 
 Suma ilości wielkości, z których użytkownik chce pobrać surowiec, to: 32 + 23 + 37 => 92 (zamówienia wymagają ilości: 75).
 Różnica jest spora w wybranym sposobie realizacji, co jest opisane poniżej.
@@ -118,6 +124,8 @@ Gdy chcemy pobrać w zamówieniu 1) konkretną ilość (25) z każdego rozmiaru,
 Jest to spowodowane faktem, że jedna z wymaganych hałd (konkretnie o rozmiarze "średnie") nie spełnia wymagania ilości: 25 jednostek.
 
 Z kolei realizując drugie zamówienie otrzymamy informację "Zamówienia zostało zrealizowane pomyślnie!", ponieważ system automatycznie postara się dobrać ilość spośród wybranych materiałów, tak, aby zamówienie zawsze zostało zrealizowane, jeśli tylko suma ilości potrzebnych wielkości jest większa, bądź równa ilości w magazynie.
+
 Po realizacji zamówienia, stan tego surowca w magazynie wynosi: \[bardzo drobne - 25; drobne - 8; średnie - 0; duże - 9; bardzo duże - 49].
-Zwróć uwagę jak system poradził sobie z brakiem dwóch jednostek w rozmiarze średnie (było dostępnych 23, a preferowana ilość to 25 [bo: 75 łącznie / 3 rozmiary = 25 jednostek na rozmiar]): pobrał w zamian po jednej z rozmiarów drobne oraz duże.
+
+Zwróć uwagę jak system poradził sobie z brakiem dwóch jednostek w rozmiarze średnie (było dostępnych 23, a preferowana ilość to 25 \[bo: 75 łącznie / 3 rozmiary = 25 jednostek na rozmiar]): pobrał w zamian po jednej z rozmiarów drobne oraz duże.
 
