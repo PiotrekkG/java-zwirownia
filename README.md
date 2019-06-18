@@ -99,11 +99,9 @@ Aby upewnić się, że żwirownia zrealizuje możliwie jak największą ilość 
 
 **Przykład pokazujący poprawność rady (opcja druga oraz trzecia):**
 
-Przyjmijmy, że do żwirowni trafia zamówienie na surowiec: Żwir
+Przyjmijmy, że do żwirowni trafia zamówienie na surowiec: Żwir i jego stan to: \[bardzo drobne - 25; drobne - 32; średnie - 23; duże - 37; bardzo duże - 49]
 
-jego stan to: \[bardzo drobne - 25; drobne - 32; średnie - 23; duże - 37; bardzo duże - 49]
-
-Mając dwa zamówienia:
+Mamy dwa zamówienia na ten surowiec:
 1) Zamówienie 1:
    - opis zamówienia: Zamówienie żwiru - konkretne ilości
    - rodzaj materiału: Żwir
@@ -114,11 +112,12 @@ Mając dwa zamówienia:
    - rodzaj materiału: Żwir
    - rozmiar od: drobne, do: duże
    - ilość: łącznie 75 (pobieranie z wybranych dostępnych rozmiarów w miarę równomiernie)
+   
+Różnica jest spora w wybranym sposobie realizacji, co jest opisane poniżej.
 
 > Zwróć uwagę na linijkę z rozmiarem oraz o ilości do pobrania - są to istotne informacje.
 
-Suma ilości wielkości, z których użytkownik chce pobrać surowiec, to: 32 + 23 + 37 => 92 (zamówienia wymagają ilości: 75).
-Różnica jest spora w wybranym sposobie realizacji, co jest opisane poniżej.
+Suma ilości wielkości, z których użytkownik chce pobrać surowiec, to: 32 + 23 + 37 => 92 (każde zamówienie informuje, że wymaga ilości: 75).
 
 Gdy chcemy pobrać w zamówieniu 1) konkretną ilość (25) z każdego rozmiaru, otrzymamy informację "Brak wystarczających materiałów, aby zrealizować zamówienie!".
 Jest to spowodowane faktem, że jedna z wymaganych hałd (konkretnie o rozmiarze "średnie") nie spełnia wymagania ilości: 25 jednostek.
