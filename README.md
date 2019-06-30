@@ -3,6 +3,11 @@
 Prosty system obsługi wydobycia oraz sprzedaży na żwirowni wykonany w języku Java.
 
 
+## Znane mi mankamenty
+- redundancja (na przykład kod menu powielony wiele razy lub metody wczytania danych wyglądają prawie identycznie),
+- brak jednostek miary (istnieje tylko jednostka o nazwie: "jednostka"), a wielkości są umowne (od bardzo małego rozmiaru, do bardzo dużego),
+- parę innych; m.in. związanych z używaniem globalnego zmiennego stanu (choć w większości jest zależny od swojego obiektu nadrzędnego).
+
 
 ## Funkcje
 - możliwość dodania rodzaju wydobywanego surowca (urobku),
