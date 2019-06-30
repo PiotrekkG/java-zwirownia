@@ -20,6 +20,10 @@ Prosty system obsługi wydobycia oraz sprzedaży na żwirowni wykonany w języku
 
 
 ## Uruchomienie
+**Aplikację w formacie .JAR można uzyskać ze źródeł:**
+- samodzielny eksport na podstawie projektu,
+- pobrać z mojego GoogleDrive ([Pobieranie](https://drive.google.com/file/d/1ADueMO7-69qVOFLk3fXTy9oXfpYlN_zu/view)) (postaram się, aby w razie aktualizacji, wersja była aktualna)
+
 **Wymagane dodatkowe aplikacje:**
 - Java w wersji 12 ([Pobieranie](https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html))
 
